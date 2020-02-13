@@ -3,7 +3,6 @@ function _tamaas_usage
   echo ""
   echo "commands:"
   echo '    switch (debug|release|profiling)	switch build dir of tamaas'
-  echo '    compile				compile tamaas'
   echo '    docker image_name			launch tamaas docker environment (requires sudo)'
 end
 
@@ -24,10 +23,11 @@ function tamaas
     pushd $TAMAAS
     rm -f build
     ln -s build-$argv[2] build
-    popd
-
-  else if [ $argv[1] = "compile" ]
+    tmc build_type=$argv[2] -c
     tmc
+    pip install -q --user -e $TAMAAS/build-$argv[2]/python
+    python -c 'import tamaas; print(tamaas.TamaasInfo.build_type); print(tamaas.__file__)'
+    popd
 
   else if [ $argv[1] = "docker" ]
     if [ $nargs -eq 1 ]
