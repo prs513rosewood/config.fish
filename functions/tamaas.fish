@@ -21,12 +21,11 @@ function tamaas
     end
 
     pushd $TAMAAS
-    rm -f build
-    ln -s build-$argv[2] build
-    tmc build_type=$argv[2] -c
-    tmc
-    pip install -q --user -e $TAMAAS/build-$argv[2]/python
-    python -c 'import tamaas; print(tamaas.TamaasInfo.build_type); print(tamaas.__file__)'
+    rm -rf build-$argv[2]
+    rm -f compile_commands.json
+    tmc build_type=$argv[2]
+    scons dev
+    python3 -c 'import tamaas; print(tamaas.TamaasInfo.build_type); print(tamaas.__file__)'
     popd
 
   else if [ $argv[1] = "docker" ]

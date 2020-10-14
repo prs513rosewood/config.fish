@@ -10,6 +10,10 @@ alias less='less -R'
 alias xclip='xclip -selection c'
 alias thesaurus='aiksaurus'
 alias tor-browser='$HOME/Applications/tor-browser_en-US/Browser/start-tor-browser --detach'
+alias sqlite3='sqlite3 -header -column'
+alias v='test -f $PWD/.venv/bin/activate.fish; and source $PWD/.venv/bin/activate.fish'
+alias scons3="/usr/bin/env python3 (which scons)"
+alias whereami="curl -s 'ipinfo.io'; echo"
 
 set -e PYTHONPATH
 
@@ -25,20 +29,29 @@ set -x VENVS $HOME/.local/share/virtualenvs
 set -x PATH $HOME/.cargo/bin $PATH
 
 # Tamaas
-set -x TAMAAS $HOME/Documents/tamaas
+set -x TAMAAS $HOME/Documents/repos/tamaas
 
 # Akantu
 set -x AKANTU $HOME/Documents/akantu
+
+# Ovito
+set -x PATH /opt/ovito/bin $PATH
 
 # Editor
 set -x EDITOR "/usr/bin/vim"
 
 # Password-store
-set -x PASSWORD_STORE_DIR "$HOME/Nextcloud/password-store"
 set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
 
 # Keybase shortcut
 set -x KBFS /keybase/private/hexley/
+
+# Spack
+set -x SPACK_ROOT $HOME/Documents/repos/spack
+
+if test -f $SPACK_ROOT/share/spack/setup-env.fish
+  #source $SPACK_ROOT/share/spack/setup-env.fish
+end
 
 # SSH key
 keychain --quiet
