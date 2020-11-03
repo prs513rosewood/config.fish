@@ -2,6 +2,7 @@
 set -x LC_ALL en_US.UTF-8
 
 # Aliases
+alias re='source $HOME/.config/fish/config.fish'
 alias rm='rm -i'
 alias backup='rsync -au --delete $HOME /run/media/frerot/LHF\ Data/rsync-backup'
 alias ssh-tunnel='ssh -fN -L'
@@ -14,6 +15,7 @@ alias sqlite3='sqlite3 -header -column'
 alias v='test -f $PWD/.venv/bin/activate.fish; and source $PWD/.venv/bin/activate.fish'
 alias scons3="/usr/bin/env python3 (which scons)"
 alias whereami="curl -s 'ipinfo.io'; echo"
+alias p2p="sudo protonvpn c 'CH#10'; and whereami"
 
 set -e PYTHONPATH
 
