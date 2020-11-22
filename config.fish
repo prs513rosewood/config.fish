@@ -1,75 +1,54 @@
-# Setting locale for git
+# Fish-specific settings
+set -xU fish_features stderr-nocaret qmark-noglob
+
+# Load system variables
+if test -e /etc/profile.env
+  source /etc/profile.env
+end
+
+# User environment variables
+set local $HOME/.local
 set -x LC_ALL en_US.UTF-8
+set -x PATH $local/bin /opt/ovito/bin $HOME/.cargo/bin $PATH
+set -x LD_LIBRARY_PATH "$local/lib:$LD_LIBRARY_PATH"
+set -x EDITOR (which vim)
+set -x VENVS $local/share/virtualenvs
+set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
+set -x KBFS /keybase/private/hexley/
+set -e PYTHONPATH
+
+set SPACK_ROOT $HOME/Documents/repos/spack
+if test -f $SPACK_ROOT/share/spack/setup-env.fish
+  source $SPACK_ROOT/share/spack/setup-env.fish
+end
+
+# ----------------------------------------------------------
+
+# SSH key
+keychain --quiet
+set KEYCHAIN_FILE $HOME/.keychain/(hostname)-fish
+if test -f $KEYCHAIN_FILE
+  source $KEYCHAIN_FILE
+end
+ssh-add  < /dev/null > /dev/null 2>&1
 
 # Aliases
 alias re='source $HOME/.config/fish/config.fish'
 alias rm='rm -i'
-alias backup='rsync -au --delete $HOME /run/media/frerot/LHF\ Data/rsync-backup'
-alias ssh-tunnel='ssh -fN -L'
 alias open='xdg-open'
-alias less='less -R'
 alias xclip='xclip -selection c'
 alias thesaurus='aiksaurus'
-alias tor-browser='$HOME/Applications/tor-browser_en-US/Browser/start-tor-browser --detach'
 alias sqlite3='sqlite3 -header -column'
-alias v='test -f $PWD/.venv/bin/activate.fish; and source $PWD/.venv/bin/activate.fish'
 alias scons3="/usr/bin/env python3 (which scons)"
 alias whereami="curl -s 'ipinfo.io'; echo"
 alias p2p="sudo protonvpn c 'CH#10'; and whereami"
 
-set -e PYTHONPATH
-
-# Load system variables
-if test -e /etc/profile.env
-    . /etc/profile.env
+# Loading virtualenv files
+function v
+  set venv_file bin/activate.fish
+  if test -f $PWD/.venv/$venv_file
+    source $PWD/.venv/$venv_file
+  else
+    source $VENVS/(basename $PWD)/$venv_file
+  end
 end
-
-# Virtual environments
-set -x VENVS $HOME/.local/share/virtualenvs
-
-# Cargo/Rust
-set -x PATH $HOME/.cargo/bin $PATH
-
-# Tamaas
-set -x TAMAAS $HOME/Documents/repos/tamaas
-
-# Akantu
-set -x AKANTU $HOME/Documents/akantu
-
-# Ovito
-set -x PATH /opt/ovito/bin $PATH
-
-# Editor
-set -x EDITOR "/usr/bin/vim"
-
-# Password-store
-set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
-
-# Keybase shortcut
-set -x KBFS /keybase/private/hexley/
-
-# Spack
-set -x SPACK_ROOT $HOME/Documents/repos/spack
-
-if test -f $SPACK_ROOT/share/spack/setup-env.fish
-  #source $SPACK_ROOT/share/spack/setup-env.fish
-end
-
-# SSH key
-keychain --quiet
-
-set KEYCHAIN_FILE $HOME/.keychain/(hostname)-fish
-
-if test -f $KEYCHAIN_FILE
-  source $KEYCHAIN_FILE
-end
-
-ssh-add  < /dev/null > /dev/null 2>&1
-
-# Adding $HOME/.local to paths
-set local $HOME/.local
-set -x PATH $local/bin $PATH
-set -x LD_LIBRARY_PATH "$local/lib:$LD_LIBRARY_PATH"
-
-# Setting number of threads for OMP
-set -x OMP_NUM_THREADS 2
