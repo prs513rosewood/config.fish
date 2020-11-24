@@ -1,6 +1,3 @@
-# Fish-specific settings
-set -xU fish_features stderr-nocaret qmark-noglob
-
 # Load system variables
 if test -e /etc/profile.env
   source /etc/profile.env
@@ -15,6 +12,7 @@ set -x EDITOR (which vim)
 set -x VENVS $local/share/virtualenvs
 set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
 set -x KBFS /keybase/private/hexley/
+set -x LESS "-RX"
 set -e PYTHONPATH
 
 set SPACK_ROOT $HOME/Documents/repos/spack
@@ -33,15 +31,17 @@ end
 ssh-add  < /dev/null > /dev/null 2>&1
 
 # Aliases
-alias re='source $HOME/.config/fish/config.fish'
+alias re='source $__fish_config_dir/config.fish'
+alias rc='$EDITOR $__fish_config_dir/config.fish'
 alias rm='rm -i'
 alias open='xdg-open'
 alias xclip='xclip -selection c'
 alias thesaurus='aiksaurus'
 alias sqlite3='sqlite3 -header -column'
 alias scons3="/usr/bin/env python3 (which scons)"
-alias whereami="curl -s 'ipinfo.io'; echo"
+alias whereami="curl -s 'ipinfo.io' | jq -r '\"\(.ip) \(.city), \(.country)\"'"
 alias p2p="sudo protonvpn c 'CH#10'; and whereami"
+alias hl="source-highlight -f esc256 -o STDOUT"
 
 # Loading virtualenv files
 function v
