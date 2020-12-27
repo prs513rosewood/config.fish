@@ -33,14 +33,15 @@ ssh-add  < /dev/null > /dev/null 2>&1
 # Aliases
 alias re='source $__fish_config_dir/config.fish'
 alias rc='$EDITOR $__fish_config_dir/config.fish'
+alias time='time -p'
 alias rm='rm -i'
 alias open='xdg-open'
 alias xclip='xclip -selection c'
 alias thesaurus='aiksaurus'
 alias sqlite3='sqlite3 -header -column'
 alias scons3="/usr/bin/env python3 (which scons)"
-alias whereami="curl -s 'ipinfo.io' | jq -r '\"\(.ip) \(.city), \(.country)\"'"
-alias p2p="sudo protonvpn c 'CH#10'; and whereami"
+alias whereami="curl -s 'https://api.myip.com' | jq -r '\"\(.ip) \(.country)\"'"
+alias p2p="protonvpn-cli c 'CH#10'; whereami"
 alias hl="source-highlight -f esc256 -o STDOUT"
 
 # Loading virtualenv files
@@ -52,3 +53,9 @@ function v
     source $VENVS/(basename $PWD)/$venv_file
   end
 end
+
+# Looking up cheat-sheets
+function cheat
+  curl -s https://cheat.sh/$argv[1] | less -E
+end
+complete -c cheat.sh -xa '(curl -s https://cheat.sh/:list)'
