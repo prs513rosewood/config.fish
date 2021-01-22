@@ -6,7 +6,7 @@ end
 # User environment variables
 set local $HOME/.local
 set -x LC_ALL en_US.UTF-8
-set -x PATH $local/bin /opt/ovito/bin $HOME/.cargo/bin $PATH
+set -x PATH $local/bin /opt/lammps/bin /opt/ovito/bin /opt/netcdf/bin $HOME/.cargo/bin $PATH
 set -x LD_LIBRARY_PATH "$local/lib:$LD_LIBRARY_PATH"
 set -x EDITOR (which vim)
 set -x VENVS $local/share/virtualenvs
@@ -38,7 +38,7 @@ alias thesaurus='aiksaurus'
 alias sqlite3='sqlite3 -header -column'
 alias scons3="/usr/bin/env python3 (which scons)"
 alias whereami="curl -s 'https://api.myip.com' | jq -r '\"\(.ip) \(.country)\"'"
-alias p2p="protonvpn-cli c 'CH#10'; whereami"
+alias p2p="echo Current: (whereami); protonvpn-cli c --p2p; echo New: (whereami)"
 alias hl="source-highlight -f esc256 -o STDOUT"
 
 # Loading virtualenv files
@@ -56,3 +56,8 @@ function cheat
   curl -s https://cheat.sh/$argv[1] | less -E
 end
 complete -c cheat.sh -xa '(curl -s https://cheat.sh/:list)'
+
+# Pulling from pre-made gitignore
+function gitignore
+  curl -sL https://www.toptal.com/developers/gitignore/api/$argv
+end
