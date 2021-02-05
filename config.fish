@@ -38,6 +38,7 @@ alias thesaurus='aiksaurus'
 alias sqlite3='sqlite3 -header -column'
 alias scons3="/usr/bin/env python3 (which scons)"
 alias whereami="curl -s 'https://api.myip.com' | jq -r '\"\(.ip) \(.country)\"'"
+alias pvpn="protonvpn-cli"
 alias p2p="echo Current: (whereami); protonvpn-cli c --p2p; echo New: (whereami)"
 alias hl="source-highlight -f esc256 -o STDOUT"
 
