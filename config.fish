@@ -6,8 +6,16 @@ end
 # User environment variables
 set local $HOME/.local
 set -x LC_ALL en_US.UTF-8
-set -x PATH $local/bin /opt/lammps/bin /opt/ovito/bin /opt/netcdf/bin $HOME/.cargo/bin $PATH
-set -x LD_LIBRARY_PATH "$local/lib:$LD_LIBRARY_PATH"
+set -x PATH \
+    $local/bin \
+    /opt/tfel/bin \
+    /opt/singularity/bin \
+    /opt/lammps/bin \
+    /opt/ovito/bin \
+    /opt/netcdf/bin \
+    $HOME/.cargo/bin \
+    $PATH
+set -x LD_LIBRARY_PATH "$local/lib:/opt/tfel/lib:$LD_LIBRARY_PATH"
 set -x EDITOR (which vim)
 set -x VENVS $local/share/virtualenvs
 set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
@@ -36,10 +44,9 @@ alias open='xdg-open'
 alias xclip='xclip -selection c'
 alias thesaurus='aiksaurus'
 alias sqlite3='sqlite3 -header -column'
-alias scons3="/usr/bin/env python3 (which scons)"
+alias scons3="env python3 (which scons)"
 alias whereami="curl -s 'https://api.myip.com' | jq -r '\"\(.ip) \(.country)\"'"
 alias pvpn="protonvpn-cli"
-alias p2p="echo Current: (whereami); protonvpn-cli c --p2p; echo New: (whereami)"
 alias hl="source-highlight -f esc256 -o STDOUT"
 
 # Loading virtualenv files
