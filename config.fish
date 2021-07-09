@@ -38,7 +38,6 @@ ssh-add  < /dev/null > /dev/null 2>&1
 # Aliases
 alias re='source $__fish_config_dir/config.fish'
 alias rc='$EDITOR $__fish_config_dir/config.fish'
-alias time='time -p'
 alias rm='rm -i'
 alias open='xdg-open'
 alias xclip='xclip -selection c'
