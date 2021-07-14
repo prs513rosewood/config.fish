@@ -13,6 +13,7 @@ set -x PATH \
     /opt/lammps/bin \
     /opt/ovito/bin \
     /opt/netcdf/bin \
+    /usr/local/cuda/bin \
     $HOME/.cargo/bin \
     $PATH
 set -x LD_LIBRARY_PATH "$local/lib:/opt/tfel/lib:$LD_LIBRARY_PATH"
@@ -68,4 +69,28 @@ complete -c cheat.sh -xa '(curl -s https://cheat.sh/:list)'
 # Pulling from pre-made gitignore
 function gitignore
   curl -sL https://www.toptal.com/developers/gitignore/api/$argv
+end
+
+# Tunnel for jupyter notebook
+function jupyter-tunnel
+  argparse 'p/local-port=' 'j/jupyter-port=' -- $argv
+
+  set port "$_flag_p"
+  if test -z "$port"
+    set port 8080
+  end
+
+  set jport "$_flag_j"
+  if test -z "$jport"
+    set jport 8989
+  end
+
+  set server $argv[1]
+  set node (ssh $server 'squeue -u $USER' | awk '/jupyter/ { print $(NF); }')
+
+  if test -n "$node"
+    ssh -L $port:$node:$jport $server -fN
+  else
+    echo "Did not find a node running jupyter on $server"
+  end
 end
