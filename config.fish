@@ -93,3 +93,16 @@ function jupyter-tunnel
     echo "Did not find a node running jupyter on $server"
   end
 end
+
+# Convert pdf to greyscale
+function pdfgreyscale
+  gs \
+    -sOutputFile=$argv[2] \
+    -sDEVICE=pdfwrite \
+    -sColorConversionStrategy=Gray \
+    -dProcessColorModel=/DeviceGray \
+    -dCompatibilityLevel=1.4 \
+    -dNOPAUSE \
+    -dBATCH \
+    $argv[1]
+end
