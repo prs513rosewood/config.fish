@@ -17,7 +17,7 @@ set -x PATH \
     $HOME/.cargo/bin \
     $PATH
 set -x LD_LIBRARY_PATH "$local/lib:/opt/tfel/lib:$LD_LIBRARY_PATH"
-set -x EDITOR (which vim)
+set -x EDITOR (command -v vim)
 set -x VENVS $local/share/virtualenvs
 set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
 set -x KBFS /keybase/private/hexley/
@@ -44,7 +44,7 @@ alias open='xdg-open'
 alias xclip='xclip -selection c'
 alias thesaurus='aiksaurus'
 alias sqlite3='sqlite3 -header -column'
-alias scons3="env python3 (which scons)"
+alias scons3="env python3 (command -v scons)"
 alias whereami="curl -s 'https://api.myip.com' | jq -r '\"\(.ip) \(.country)\"'"
 alias pvpn="protonvpn-cli"
 alias hl="source-highlight -f esc256 -o STDOUT"
