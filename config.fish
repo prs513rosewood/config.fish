@@ -3,20 +3,14 @@ if test -e /etc/profile.env
   source /etc/profile.env
 end
 
+# Generic path
+set -x PATH /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/games /usr/local/games
+
 # User environment variables
 set local $HOME/.local
 set -x LC_ALL en_US.UTF-8
-set -x PATH \
-    $local/bin \
-    /opt/tfel/bin \
-    /opt/singularity/bin \
-    /opt/lammps/bin \
-    /opt/ovito/bin \
-    /opt/netcdf/bin \
-    /usr/local/cuda/bin \
-    $HOME/.cargo/bin \
-    $PATH
-set -x LD_LIBRARY_PATH "$local/lib:/opt/tfel/lib:$LD_LIBRARY_PATH"
+set -x PATH $local/bin $PATH
+set -x LD_LIBRARY_PATH "$local/lib:$LD_LIBRARY_PATH"
 set -x EDITOR (command -v vim)
 set -x VENVS $local/share/virtualenvs
 set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
@@ -29,10 +23,12 @@ set SPACK_ROOT $HOME/Documents/repos/spack
 # ----------------------------------------------------------
 
 # SSH key
-keychain --quiet
-set KEYCHAIN_FILE $HOME/.keychain/(hostname)-fish
-if test -f $KEYCHAIN_FILE
-  source $KEYCHAIN_FILE
+if command -v keychain
+  keychain --quiet
+  set KEYCHAIN_FILE $HOME/.keychain/(hostname)-fish
+  if test -f $KEYCHAIN_FILE
+    source $KEYCHAIN_FILE
+  end
 end
 ssh-add  < /dev/null > /dev/null 2>&1
 
