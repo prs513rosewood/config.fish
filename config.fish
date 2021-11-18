@@ -28,14 +28,6 @@ set SPACK_ROOT $HOME/Documents/repos/spack
 
 # ----------------------------------------------------------
 
-# SSH key
-keychain --quiet
-set KEYCHAIN_FILE $HOME/.keychain/(hostname)-fish
-if test -f $KEYCHAIN_FILE
-  source $KEYCHAIN_FILE
-end
-ssh-add  < /dev/null > /dev/null 2>&1
-
 # Aliases
 alias re='source $__fish_config_dir/config.fish'
 alias rc='$EDITOR $__fish_config_dir/config.fish'
@@ -105,4 +97,17 @@ function pdfgreyscale
     -dNOPAUSE \
     -dBATCH \
     $argv[1]
+end
+
+# Convert image frames to video
+function frame2vid
+  set basename $argv[1]
+
+  ffmpeg \
+    -f image2 \
+    -framerate 25 \
+    -i "$basename.%04d.png" \
+    -pix_fmt yuv420p \
+    "$basename.mp4"
+
 end
