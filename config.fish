@@ -20,7 +20,7 @@ set -e PYTHONPATH
 # ----------------------------------------------------------
 
 # SSH key
-if command -v keychain
+if test -n (command -v keychain)
   keychain --quiet
   set KEYCHAIN_FILE $HOME/.keychain/(hostname)-fish
   if test -f $KEYCHAIN_FILE
