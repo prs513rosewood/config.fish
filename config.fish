@@ -1,5 +1,5 @@
 # Load ssh keys in agent
-if test -n (command -v keychain)
+if command -v keychain
   keychain --quiet
   set KEYCHAIN_FILE $HOME/.keychain/(hostname)-fish
   if test -f $KEYCHAIN_FILE
