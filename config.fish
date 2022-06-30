@@ -27,7 +27,7 @@ alias gs="gs -dQUIET -dNOPAUSE -dBATCH -sDEVICE=pdfwrite"
 
 # Loading virtualenv files
 function v
-  set venv_file bin/activate.fish
+  set venv_file local/bin/activate.fish
   if test -f $PWD/.venv/$venv_file
     source $PWD/.venv/$venv_file
   else
@@ -104,3 +104,15 @@ function frame2vid
 
 end
 
+# Convert pdf to png
+function pdf2png
+  set dpi $argv[1]
+  set in $argv[2]
+  set out $argv[3]
+
+  inkscape \
+    --pdf-poppler \
+    -C -d $dpi \
+    -o $out \
+    $in
+end
