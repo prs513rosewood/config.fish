@@ -22,6 +22,10 @@ alias whereami="curl -s 'https://api.myip.com' | jq -r '\"\(.ip) \(.country)\"'"
 alias pvpn="protonvpn-cli"
 alias hl="source-highlight -f esc256 -o STDOUT"
 alias gs="gs -dQUIET -dNOPAUSE -dBATCH -sDEVICE=pdfwrite"
+alias asan="env LD_PRELOAD=(gcc -print-file-name=libasan.so) ASAN_OPTIONS=detect_leaks=0"
+alias inkscape="flatpak run org.inkscape.Inkscape"
+alias j2html="jupyter nbconvert --to html"
+alias merge-accents="sed -i 's/é/é/g;s/è/è/g;s/à/à/g;s/ù/ù/g;s/ê/ê/g;s/ç/ç/g;s/û/û/g;s/î/î/g;s/À/À/g;s/É/É/g;s/È/È/g'"
 
 # ----------------------------------------------------------
 
@@ -83,7 +87,12 @@ function pdfmanip
 end 
 
 # Convert pdf to greyscale
-function pdfgreyscale
+function pdfgrayscale
+  test (count $argv) -eq 2; or begin
+    echo "usage: pdfgrayscale input.pdf output.pdf"
+    return 1
+  end
+
   pdfmanip -o $argv[2] \
     -sColorConversionStrategy=Gray \
     -dProcessColorModel=/DeviceGray \
@@ -93,25 +102,34 @@ end
 
 # Convert image frames to video
 function frame2vid
-  set basename $argv[1]
+  test (count $argv) -eq 1; or begin
+    echo "usage: frame2vid basename"
+    return 1
+  end
 
+  set basename $argv[1]
   ffmpeg \
     -f image2 \
     -framerate 25 \
     -i "$basename.%04d.png" \
     -pix_fmt yuv420p \
     "$basename.mp4"
-
 end
 
 # Convert pdf to png
 function pdf2png
+  test (count $argv) -eq 3; or begin
+    echo "usage: pdf2png dpi input.pdf output.png"
+    return 1
+  end
+
   set dpi $argv[1]
   set in $argv[2]
   set out $argv[3]
 
-  inkscape \
+  flatpak run org.inkscape.Inkscape \
     --pdf-poppler \
+    -b "FFFFFF" \
     -C -d $dpi \
     -o $out \
     $in
