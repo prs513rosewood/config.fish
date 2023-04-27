@@ -31,11 +31,18 @@ alias merge-accents="sed -i 's/é/é/g;s/è/è/g;s/à/à/g;s/ù/ù/g;s/ê/�
 
 # Loading virtualenv files
 function v
-  set venv_file local/bin/activate.fish
+  set venv_file bin/activate.fish
+
+  if test (count $argv) -gt 0
+      set venv_name $argv[1]
+  else
+      set venv_name (basename $PWD)
+  end
+
   if test -f $PWD/.venv/$venv_file
     source $PWD/.venv/$venv_file
   else
-    source $VENVS/(basename $PWD)/$venv_file
+    source $VENVS/$venv_name/$venv_file
   end
 end
 

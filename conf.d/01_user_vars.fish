@@ -13,7 +13,7 @@ set local $HOME/.local
 
 # User environment variables
 set -x EDITOR (command -v vim)
-set -x VENVS $local/share/virtualenvs
+set -x VENVS $local/share/venv/
 set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
 set -x LESS "-RX"
 
