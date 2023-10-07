@@ -33,7 +33,7 @@ set -x LD_LIBRARY_PATH "$local/lib:/usr/local/lib:$LD_LIBRARY_PATH"
 set -e PYTHONPATH
 
 # Parallel scons builds
-set -x SCONSFLAGS -j\ (math (nproc)/2)
+set -x SCONSFLAGS -j\ 4
 
 # TeXLive config
 set -x TEXMFHOME $HOME/.config/texmf
@@ -42,5 +42,5 @@ set -x TEXMFHOME $HOME/.config/texmf
 set python_version (python3 -V | cut -d " " -f 2 | cut -d '.' -f 1,2)
 set -x PYTHONPATH "$local/lib/python$python_version/site-packages:/usr/local/lib/python$python_version/site-packages"
 
-# Set default snakemake profile
-set -x SNAKEMAKE_PROFILE default
+# Set OMP_NUM_THREADS to 1: avoids scipy running in parallel on all cores
+set -x OMP_NUM_THREADS 1

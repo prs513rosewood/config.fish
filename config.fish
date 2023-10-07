@@ -23,9 +23,9 @@ alias pvpn="protonvpn-cli"
 alias hl="source-highlight -f esc256 -o STDOUT"
 alias gs="gs -dQUIET -dNOPAUSE -dBATCH -sDEVICE=pdfwrite"
 alias asan="env LD_PRELOAD=(gcc -print-file-name=libasan.so) ASAN_OPTIONS=detect_leaks=0"
-alias inkscape="flatpak run org.inkscape.Inkscape"
 alias j2html="jupyter nbconvert --to html"
 alias merge-accents="sed -i 's/é/é/g;s/è/è/g;s/à/à/g;s/ù/ù/g;s/ê/ê/g;s/ç/ç/g;s/û/û/g;s/î/î/g;s/À/À/g;s/É/É/g;s/È/È/g'"
+alias ovito="$HOME/Applications/ovito-pro-3.8.4-x86_64/bin/ovito"
 
 # ----------------------------------------------------------
 
@@ -134,7 +134,7 @@ function pdf2png
   set in $argv[2]
   set out $argv[3]
 
-  flatpak run org.inkscape.Inkscape \
+  inkscape \
     --pdf-poppler \
     -b "FFFFFF" \
     -C -d $dpi \
