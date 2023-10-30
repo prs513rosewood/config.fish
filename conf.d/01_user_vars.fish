@@ -1,6 +1,8 @@
 # Generic path
 set -x PATH          \
   /usr/local/bin     \
+  /usr/lib64/mpi/gcc/openmpi4/bin/ \
+  /usr/lib{,64}/ccache             \
   /usr/lib/ccache    \
   /usr/sbin          \
   /usr/bin           \
@@ -27,7 +29,7 @@ set -x LC_NUMERIC "C.UTF-8"  # dot for numbers
 # User paths
 set local $HOME/.local
 set -x PATH $local/bin $PATH
-set -x LD_LIBRARY_PATH "$local/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+set -x LD_LIBRARY_PATH "$local/lib:/usr/local/lib:/usr/lib64/mpi/gcc/openmpi4/lib64:$LD_LIBRARY_PATH"
 
 # Erase any previously set PYTHONPATH
 set -e PYTHONPATH
