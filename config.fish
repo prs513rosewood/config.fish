@@ -156,6 +156,6 @@ end
 set -e SSH_ASKPASS
 
 # Pyenv setup
-if command -v pyenv >/dev/null 2&>1
+if command -v pyenv >/dev/null 2>&1
     pyenv init - | source
 end
