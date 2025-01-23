@@ -1,14 +1,14 @@
 # Generic path
-set -x PATH          \
-  /usr/local/bin     \
-  /usr/lib64/mpi/gcc/openmpi4/bin/ \
+set -x PATH                        \
+  /opt/texlive/bin/x86_64-linux/   \
+  /usr/local/bin                   \
   /usr/lib{,64}/ccache             \
-  /usr/lib/ccache    \
-  /usr/sbin          \
-  /usr/bin           \
-  /sbin              \
-  /bin               \
-  /usr/games         \
+  /usr/lib/ccache                  \
+  /usr/sbin                        \
+  /usr/bin                         \
+  /sbin                            \
+  /bin                             \
+  /usr/games                       \
   /usr/local/games
 
 set local $HOME/.local
@@ -26,10 +26,14 @@ set -x LANG       "C.UTF-8"  # fallback if undefined
 set -x LANGUAGE   "C.UTF-8"  # english for command output
 set -x LC_NUMERIC "C.UTF-8"  # dot for numbers
 
+# Compilers
+set -x CC gcc-12
+set -x CXX g++-12
+
 # User paths
 set local $HOME/.local
 set -x PATH $local/bin $PATH
-set -x LD_LIBRARY_PATH "$local/lib:/usr/local/lib:/usr/lib64/mpi/gcc/openmpi4/lib64:$LD_LIBRARY_PATH"
+set -x LD_LIBRARY_PATH "$local/lib:/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH"
 
 # Erase any previously set PYTHONPATH
 set -e PYTHONPATH
