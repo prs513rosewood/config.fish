@@ -25,6 +25,8 @@ alias gs="gs -dQUIET -dNOPAUSE -dBATCH -sDEVICE=pdfwrite"
 alias asan="env LD_PRELOAD=(gcc -print-file-name=libasan.so) ASAN_OPTIONS=detect_leaks=0"
 alias j2html="jupyter nbconvert --to html"
 alias merge-accents="sed -i 's/é/é/g;s/è/è/g;s/à/à/g;s/ù/ù/g;s/ê/ê/g;s/ç/ç/g;s/û/û/g;s/î/î/g;s/À/À/g;s/É/É/g;s/È/È/g'"
+alias emacs="emacs -nw"
+alias fm="yazi"
 
 # ----------------------------------------------------------
 
@@ -158,4 +160,8 @@ set -e SSH_ASKPASS
 # Pyenv setup
 if command -v pyenv >/dev/null 2>&1
     pyenv init - | source
+end
+
+if contains fzf_key_bindings (functions)
+    fzf_key_bindings
 end

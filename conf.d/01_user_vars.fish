@@ -1,6 +1,7 @@
 # Generic path
 set -x PATH                        \
   /opt/texlive/bin/x86_64-linux/   \
+  /home/linuxbrew/.linuxbrew/bin/  \
   /usr/local/bin                   \
   /usr/lib{,64}/ccache             \
   /usr/lib/ccache                  \
@@ -50,3 +51,6 @@ set -x PYTHONPATH "$local/lib/python$python_version/site-packages:/usr/local/lib
 
 # Set OMP_NUM_THREADS to 1: avoids scipy running in parallel on all cores
 set -x OMP_NUM_THREADS 1
+
+# Options for FZF
+set -x FZF_DEFAULT_OPTS "--walker-skip=.git,.cache"
