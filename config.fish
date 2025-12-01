@@ -26,7 +26,6 @@ alias asan="env LD_PRELOAD=(gcc -print-file-name=libasan.so) ASAN_OPTIONS=detect
 alias j2html="jupyter nbconvert --to html"
 alias merge-accents="sed -i 's/é/é/g;s/è/è/g;s/à/à/g;s/ù/ù/g;s/ê/ê/g;s/ç/ç/g;s/û/û/g;s/î/î/g;s/À/À/g;s/É/É/g;s/È/È/g'"
 alias emacs="emacs -nw"
-alias fm="yazi"
 
 # ----------------------------------------------------------
 
@@ -164,4 +163,13 @@ end
 
 if contains fzf_key_bindings (functions)
     fzf_key_bindings
+end
+
+function fm
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		builtin cd -- "$cwd"
+	end
+	rm -f -- "$tmp"
 end
