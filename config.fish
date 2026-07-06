@@ -173,3 +173,6 @@ function fm
 	end
 	rm -f -- "$tmp"
 end
+
+# Zoxide
+zoxide init fish | source
